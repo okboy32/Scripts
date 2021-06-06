@@ -3,28 +3,22 @@
 请先按下述方法进行配置，进入"奈雪点单"小程序，若弹出"首次写入奈雪の茶 Token 成功"即可正常食用，请先手动执行一次脚本后再回到小程序，点击"我的"进行授权登陆查看签到积分是否增加，其他提示或无提示请发送日志信息至 issue。
 到 cron 设定时间自动签到时，若弹出"奈雪の茶 - 签到成功"即完成签到，其他提示或无提示请发送日志信息至 issue。
 Author：zZPiglet
-
 Quantumult X (App Store:1.0.5+, TestFlight 190+):
 [task_local]
 1 0 * * * Naixue.js
 or remote
 1 0 * * * https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
-
 [rewrite_local]
 ^https:\/\/webapi\.qmai\.cn\/web\/cy\/v\d\/store\/template-scene url script-request-header Naixue.js
 or remote
 ^https:\/\/webapi\.qmai\.cn\/web\/cy\/v\d\/store\/template-scene url script-request-header https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
-
-
 Surge 4.0+:
 [Script]
 cron "1 0 * * *" script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
 http-request ^https:\/\/webapi\.qmai\.cn\/web\/cy\/v\d\/store\/template-scene script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
-
 All app:
 [mitm]
 hostname = webapi.qmai.cn
-
 获取完 Token 后可不注释 rewrite / hostname，Token 更新时会弹窗。若因 MitM 导致该软件或小程序网络不稳定，可注释掉 hostname。
 */
 
