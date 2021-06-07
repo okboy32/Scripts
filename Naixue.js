@@ -26,7 +26,7 @@ const aff = true //新用户若不想提供 aff 请改为 false。
 const CheckinURL = 'https://webapi.qmai.cn/web/marketing/attendance/user_attendance'
 const TokenName = '奈雪の茶'
 const TokenKey = 'Naixue'
-const appid = 'wxab7430e6e8b9a4ab'
+const appid = 'wx621508020f94679c'
 const cardNo = '405831385964130305'
 const $cmp = compatibility()
 
@@ -69,29 +69,86 @@ function Checkin() {
       url: CheckinURL,
       headers: {
         "Qm-From": "wechat",
-        "Qm-User-Token": $cmp.read("Naixue"),
+        "Qm-User-Token": "_pRRwkJuk-yj_6x0DzHec3A5nosMgqVarDCWJyx_I6Yj8sYFVhynVnxDzM8b9lv0",
       },
       body: '{"appid":"' + appid + '"}'
     };
-    $cmp.post(nxdc, function(error, response, data) {
+    $cmp.post(nxdc, function (error, response, data) {
       const result = JSON.parse(data)
       if (!error) {
         if (result.code == 150200) {
           $cmp.notify(TokenName, "", "签到成功！🎉")
         } else if (result.code == 150201) {
-          $cmp.notify(TokenName, "",  "重复签到！😊")
-        } else if (result.code == 9001 || result.code ==58000) {
+          $cmp.notify(TokenName, "", "重复签到！😊")
+        } else if (result.code == 9001 || result.code == 58000) {
           $cmp.notify(TokenName, "", "Token 失效❗ 请重新获取。️")
         } else {
           console.log("Naixue failed response : \n" + data)
           $cmp.notify(TokenName, "签到失败‼️ 详情请见日志。", data)
         }
       } else {
-        $cmp.notify(TokenName,  "签到接口请求失败，详情请见日志。", error)
+        $cmp.notify(TokenName, "签到接口请求失败，详情请见日志。", error)
       }
       resolve()
     })
   })
 }
 
-function compatibility(){const e="undefined"!=typeof $request,t="undefined"!=typeof $httpClient,r="undefined"!=typeof $task,n="undefined"!=typeof $app&&"undefined"!=typeof $http,o="function"==typeof require&&!n,s=(()=>{if(o){const e=require("request");return{request:e}}return null})(),i=(e,s,i)=>{r&&$notify(e,s,i),t&&$notification.post(e,s,i),o&&a(e+s+i),n&&$push.schedule({title:e,body:s?s+"\n"+i:i})},u=(e,n)=>r?$prefs.setValueForKey(e,n):t?$persistentStore.write(e,n):void 0,d=e=>r?$prefs.valueForKey(e):t?$persistentStore.read(e):void 0,l=e=>(e&&(e.status?e.statusCode=e.status:e.statusCode&&(e.status=e.statusCode)),e),f=(e,i)=>{r&&("string"==typeof e&&(e={url:e}),e.method="GET",$task.fetch(e).then(e=>{i(null,l(e),e.body)},e=>i(e.error,null,null))),t&&$httpClient.get(e,(e,t,r)=>{i(e,l(t),r)}),o&&s.request(e,(e,t,r)=>{i(e,l(t),r)}),n&&("string"==typeof e&&(e={url:e}),e.header=e.headers,e.handler=function(e){let t=e.error;t&&(t=JSON.stringify(e.error));let r=e.data;"object"==typeof r&&(r=JSON.stringify(e.data)),i(t,l(e.response),r)},$http.get(e))},p=(e,i)=>{r&&("string"==typeof e&&(e={url:e}),e.method="POST",$task.fetch(e).then(e=>{i(null,l(e),e.body)},e=>i(e.error,null,null))),t&&$httpClient.post(e,(e,t,r)=>{i(e,l(t),r)}),o&&s.request.post(e,(e,t,r)=>{i(e,l(t),r)}),n&&("string"==typeof e&&(e={url:e}),e.header=e.headers,e.handler=function(e){let t=e.error;t&&(t=JSON.stringify(e.error));let r=e.data;"object"==typeof r&&(r=JSON.stringify(e.data)),i(t,l(e.response),r)},$http.post(e))},a=e=>console.log(e),y=(t={})=>{e?$done(t):$done()};return{isQuanX:r,isSurge:t,isJSBox:n,isRequest:e,notify:i,write:u,read:d,get:f,post:p,log:a,done:y}}
+function compatibility() {
+  const e = "undefined" != typeof $request, t = "undefined" != typeof $httpClient, r = "undefined" != typeof $task,
+    n = "undefined" != typeof $app && "undefined" != typeof $http, o = "function" == typeof require && !n, s = (() => {
+      if (o) {
+        const e = require("request");
+        return {request: e}
+      }
+      return null
+    })(), i = (e, s, i) => {
+      r && $notify(e, s, i), t && $notification.post(e, s, i), o && a(e + s + i), n && $push.schedule({
+        title: e,
+        body: s ? s + "\n" + i : i
+      })
+    }, u = (e, n) => r ? $prefs.setValueForKey(e, n) : t ? $persistentStore.write(e, n) : void 0,
+    d = e => r ? $prefs.valueForKey(e) : t ? $persistentStore.read(e) : void 0,
+    l = e => (e && (e.status ? e.statusCode = e.status : e.statusCode && (e.status = e.statusCode)), e), f = (e, i) => {
+      r && ("string" == typeof e && (e = {url: e}), e.method = "GET", $task.fetch(e).then(e => {
+        i(null, l(e), e.body)
+      }, e => i(e.error, null, null))), t && $httpClient.get(e, (e, t, r) => {
+        i(e, l(t), r)
+      }), o && s.request(e, (e, t, r) => {
+        i(e, l(t), r)
+      }), n && ("string" == typeof e && (e = {url: e}), e.header = e.headers, e.handler = function (e) {
+        let t = e.error;
+        t && (t = JSON.stringify(e.error));
+        let r = e.data;
+        "object" == typeof r && (r = JSON.stringify(e.data)), i(t, l(e.response), r)
+      }, $http.get(e))
+    }, p = (e, i) => {
+      r && ("string" == typeof e && (e = {url: e}), e.method = "POST", $task.fetch(e).then(e => {
+        i(null, l(e), e.body)
+      }, e => i(e.error, null, null))), t && $httpClient.post(e, (e, t, r) => {
+        i(e, l(t), r)
+      }), o && s.request.post(e, (e, t, r) => {
+        i(e, l(t), r)
+      }), n && ("string" == typeof e && (e = {url: e}), e.header = e.headers, e.handler = function (e) {
+        let t = e.error;
+        t && (t = JSON.stringify(e.error));
+        let r = e.data;
+        "object" == typeof r && (r = JSON.stringify(e.data)), i(t, l(e.response), r)
+      }, $http.post(e))
+    }, a = e => console.log(e), y = (t = {}) => {
+      // e ? $done(t) : $done()
+    };
+  return {
+    isQuanX: r,
+    isSurge: t,
+    isJSBox: n,
+    isRequest: e,
+    notify: i,
+    write: u,
+    read: d,
+    get: f,
+    post: p,
+    log: a,
+    done: y
+  }
+}
